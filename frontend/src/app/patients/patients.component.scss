@@ -1,0 +1,59 @@
+/* Style the search bar */
+mat-form-field {
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  /* Table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header Row */
+  th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  /* Table Rows */
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Hover Effect for Rows */
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Action Buttons */
+  mat-icon {
+    font-size: 20px;
+  }
+  
+  button {
+    margin: 0 5px;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Paginator Styling */
+  mat-paginator {
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
