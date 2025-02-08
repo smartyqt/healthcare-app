@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Data;
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace backend.Controllers
 {
-	[Route("api/[controller]")]
+
+    [Route("api/[controller]")]
 	[ApiController]
 	public class PatientsController : ControllerBase
 	{
@@ -15,16 +18,8 @@ namespace backend.Controllers
 		{
 			_context = context;
 		}
-
-		// GET: api/patients
-		[HttpGet]
-		public async Task<ActionResult<IEnumerable<Patient>>> GetPatients()
-		{
-			return await _context.Patients.ToListAsync();
-		}
-
-		// GET: api/patients/5
-		[HttpGet("{id}")]
+        [Authorize(Roles = "Admin,HealthcareProfessional")]
+        [HttpGet("{id}")]
 		public async Task<ActionResult<Patient>> GetPatient(int id)
 		{
 			var patient = await _context.Patients.FindAsync(id);
@@ -36,9 +31,29 @@ namespace backend.Controllers
 
 			return patient;
 		}
+        [Authorize(Roles = "Admin,HealthcareProfessional")]
+        [HttpGet]
+        public async Task<IActionResult> GetPatients([FromQuery] string? id, [FromQuery] string? name)
+        {
+            var query = _context.Patients.AsQueryable();
 
-		// POST: api/patients
-		[HttpPost]
+            if (!string.IsNullOrWhiteSpace(id) && int.TryParse(id, out int patientId))
+            {
+                query = query.Where(p => p.Id == patientId);
+            }
+            else if (!string.IsNullOrWhiteSpace(name))
+            {
+                query = query.Where(p => p.Name.Contains(name));
+            }
+
+            var patients = await query.ToListAsync();
+            return Ok(patients);
+        }
+
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
 		public async Task<ActionResult<Patient>> CreatePatient(Patient patient)
 		{
 			_context.Patients.Add(patient);
@@ -47,7 +62,7 @@ namespace backend.Controllers
 			return CreatedAtAction(nameof(GetPatient), new { id = patient.Id }, patient);
 		}
 
-		// PUT: api/patients/5
+		[Authorize(Roles = "Admin")]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdatePatient(int id, Patient patient)
 		{
@@ -62,8 +77,9 @@ namespace backend.Controllers
 			return NoContent();
 		}
 
-		// DELETE: api/patients/5
-		[HttpDelete("{id}")]
+        // DELETE: api/patients/5
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
 		public async Task<IActionResult> DeletePatient(int id)
 		{
 			var patient = await _context.Patients.FindAsync(id);

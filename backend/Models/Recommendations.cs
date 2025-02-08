@@ -7,8 +7,8 @@ namespace backend.Models
         public required string Description { get; set; }
         public bool IsCompleted { get; set; }
 
-        public int PatientId { get; set; } // Foreign Key
-        public Patient? Patient { get; set; } // Navigation Property
+        public int PatientId { get; set; }
+        public Patient? Patient { get; set; }
     }
 
 }

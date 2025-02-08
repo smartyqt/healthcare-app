@@ -1,12 +1,14 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using backend.Data;
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RecommendationsController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -16,7 +18,7 @@ namespace backend.Controllers
             _context = context;
         }
 
-        // GET: api/recommendations/patient/{patientId}
+        [Authorize(Roles = "Admin,HealthcareProfessional")]
         [HttpGet("patient/{patientId}")]
         public async Task<ActionResult<IEnumerable<Recommendation>>> GetRecommendationsForPatient(int patientId)
         {
@@ -26,37 +28,36 @@ namespace backend.Controllers
 
             return Ok(recommendations);
         }
-
-        // POST: api/recommendations
+        [Authorize(Roles = "HealthcareProfessional")]
         [HttpPost]
-        public async Task<ActionResult<Recommendation>> CreateRecommendation(Recommendation recommendation)
+        public async Task<ActionResult<Recommendation>> CreateRecommendation([FromBody] Recommendation recommendation)
         {
+            if (recommendation == null || string.IsNullOrWhiteSpace(recommendation.Type) ||
+                string.IsNullOrWhiteSpace(recommendation.Description) || recommendation.PatientId <= 0)
+            {
+                return BadRequest("Invalid recommendation data. Ensure all fields are filled.");
+            }
+
             _context.Recommendations.Add(recommendation);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetRecommendationsForPatient), new { patientId = recommendation.PatientId }, recommendation);
         }
-        // PUT: api/recommendations/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRecommendation(int id, Recommendation updatedRecommendation)
+        [Authorize(Roles = "HealthcareProfessional")]
+        [HttpPut("{id}/complete")]
+        public async Task<IActionResult> MarkRecommmendationComplete(int id)
         {
-            if (id != updatedRecommendation.Id) {
-                return BadRequest("The recomendation ID in the URL does not match the body");
-            }
-            var existingRecommendation = await _context.Recommendations.FindAsync(id);
-            if(existingRecommendation == null)
+            var recommendation = await _context.Recommendations.FindAsync(id);
+            if (recommendation == null)
             {
-                return NotFound($"Recommendation with ID {id} not found");
+                return NotFound(new { message = $"Recommendation with ID {id} not found" });
             }
-
-            existingRecommendation.Type = updatedRecommendation.Type;
-            existingRecommendation.Description = updatedRecommendation.Description;
-            existingRecommendation.IsCompleted = updatedRecommendation.IsCompleted;
-            existingRecommendation.PatientId = updatedRecommendation.PatientId;
-            
+            recommendation.IsCompleted = true;
+            _context.Recommendations.Update(recommendation);
             await _context.SaveChangesAsync();
-            return NoContent();
 
+            return NoContent();
         }
+
     }
 }
