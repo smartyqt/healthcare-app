@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
@@ -11,9 +12,11 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250208013958_SeedPatientsData")]
+    partial class SeedPatientsData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +53,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 1,
-                            ContactInfo = "5551234567",
+                            ContactInfo = "555-1234",
                             DateOfBirth = new DateTime(1985, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Male",
                             Name = "John Doe"
@@ -58,7 +61,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 2,
-                            ContactInfo = "5555678901",
+                            ContactInfo = "555-5678",
                             DateOfBirth = new DateTime(1992, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Female",
                             Name = "Jane Smith"
@@ -66,7 +69,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 3,
-                            ContactInfo = "5554321987",
+                            ContactInfo = "555-4321",
                             DateOfBirth = new DateTime(2000, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Non-binary",
                             Name = "Alex Johnson"
@@ -74,7 +77,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 4,
-                            ContactInfo = "5557890123",
+                            ContactInfo = "555-7890",
                             DateOfBirth = new DateTime(1978, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Male",
                             Name = "Michael Brown"
@@ -82,7 +85,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 5,
-                            ContactInfo = "5552468135",
+                            ContactInfo = "555-2468",
                             DateOfBirth = new DateTime(1995, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Female",
                             Name = "Sarah Wilson"
@@ -90,7 +93,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 6,
-                            ContactInfo = "5551357924",
+                            ContactInfo = "555-1357",
                             DateOfBirth = new DateTime(1989, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Female",
                             Name = "Emily Davis"
@@ -98,7 +101,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 7,
-                            ContactInfo = "5559876543",
+                            ContactInfo = "555-9876",
                             DateOfBirth = new DateTime(1980, 6, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Male",
                             Name = "James Miller"
@@ -106,7 +109,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 8,
-                            ContactInfo = "5556543210",
+                            ContactInfo = "555-6543",
                             DateOfBirth = new DateTime(1993, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Female",
                             Name = "Olivia Martinez"
@@ -114,7 +117,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 9,
-                            ContactInfo = "5553214987",
+                            ContactInfo = "555-3214",
                             DateOfBirth = new DateTime(1975, 11, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Male",
                             Name = "William Anderson"
@@ -122,7 +125,7 @@ namespace backend.Migrations
                         new
                         {
                             Id = 10,
-                            ContactInfo = "5557894561",
+                            ContactInfo = "555-7894",
                             DateOfBirth = new DateTime(2002, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Gender = "Female",
                             Name = "Sophia Thomas"

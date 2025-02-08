@@ -28,7 +28,7 @@ namespace backend.Controllers
 
             return Ok(recommendations);
         }
-        [Authorize(Roles = "HealthcareProfessional")]
+        [Authorize(Roles = "Admin, HealthcareProfessional")]
         [HttpPost]
         public async Task<ActionResult<Recommendation>> CreateRecommendation([FromBody] Recommendation recommendation)
         {
@@ -43,7 +43,7 @@ namespace backend.Controllers
 
             return CreatedAtAction(nameof(GetRecommendationsForPatient), new { patientId = recommendation.PatientId }, recommendation);
         }
-        [Authorize(Roles = "HealthcareProfessional")]
+        [Authorize(Roles = "Admin, HealthcareProfessional")]
         [HttpPut("{id}/complete")]
         public async Task<IActionResult> MarkRecommmendationComplete(int id)
         {
