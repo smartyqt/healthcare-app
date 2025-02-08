@@ -1,59 +1,34 @@
-<div class="edit-patient-container">
-  <h2>Edit Patient</h2>
+<h2 mat-dialog-title>Edit Patient</h2>
+<mat-dialog-content>
+  <mat-form-field style="width: 100%">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="patient.name" required />
+  </mat-form-field>
 
-  <form>
-    <mat-form-field appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="patient.name" name="name" required />
-    </mat-form-field>
+  <mat-form-field style="width: 100%">
+    <mat-label>Date of Birth</mat-label>
+    <input matInput type="date" [(ngModel)]="patient.dateOfBirth" required />
+  </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Date of Birth</mat-label>
-      <input
-        matInput
-        type="date"
-        [(ngModel)]="patient.dateOfBirth"
-        name="dob"
-        required
-      />
-    </mat-form-field>
+  <mat-form-field style="width: 100%">
+    <mat-label>Gender</mat-label>
+    <mat-select [(ngModel)]="patient.gender">
+      <mat-option value="Male">Male</mat-option>
+      <mat-option value="Female">Female</mat-option>
+      <mat-option value="Other">Other</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Gender</mat-label>
-      <mat-select [(ngModel)]="patient.gender" name="gender" required>
-        <mat-option value="Male">Male</mat-option>
-        <mat-option value="Female">Female</mat-option>
-        <mat-option value="Other">Other</mat-option>
-      </mat-select>
-    </mat-form-field>
+  <mat-form-field style="width: 100%">
+    <mat-label>Contact Info</mat-label>
+    <input matInput [(ngModel)]="patient.contactInfo" required />
+  </mat-form-field>
+</mat-dialog-content>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Contact Info</mat-label>
-      <input
-        matInput
-        [(ngModel)]="patient.contactInfo"
-        name="contact"
-        required
-      />
-    </mat-form-field>
-
-    <div class="button-container">
-      <button mat-button class="cancel-button" (click)="closeDialog()">
-        Cancel
-      </button>
-      <button
-        mat-raised-button
-        class="save-button"
-        (click)="savePatient()"
-        [disabled]="
-          !patient.name ||
-          !patient.dateOfBirth ||
-          !patient.gender ||
-          !patient.contactInfo
-        "
-      >
-        Save
-      </button>
-    </div>
-  </form>
-</div>
+<!-- ✅ Add Mat Dialog Actions -->
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="savePatient()">
+    Save
+  </button>
+</mat-dialog-actions>
