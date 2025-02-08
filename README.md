@@ -24,5 +24,5 @@ Ensure you have the following installed:
 
 ### Clone the Repository
 ```sh
-git clone <your-repo-url>
+git clone https://github.com/smartyqt/healthcare-app.git
 cd healthcare-app
