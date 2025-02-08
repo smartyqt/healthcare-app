@@ -170,22 +170,6 @@ http://localhost:5085/swagger/index.html
 
 ---
 
-## Deployment
-### Docker Support (Optional)
-To run the project in a containerized environment:
-1. **Build & Run Backend**
-   ```sh
-   docker build -t healthcare-api ./backend
-   docker run -p 5085:80 healthcare-api
-   ```
-2. **Build & Run Frontend**
-   ```sh
-   docker build -t healthcare-frontend ./frontend
-   docker run -p 4200:80 healthcare-frontend
-   ```
-
----
-
 ## Author
 *Alexander Rusin*
 
