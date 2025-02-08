@@ -1,0 +1,65 @@
+.edit-patient-container {
+    padding: 24px;
+    width: 400px;
+    text-align: center;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  
+  // Fixing button alignment and size
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  
+    button {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+  
+  // Cancel Button
+  .cancel-button {
+    background: #f4f4f4;
+    color: #333;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin-right: 8px;
+  
+    &:hover {
+      background: #ddd;
+    }
+  }
+  
+  // Save Button
+  .save-button {
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+  
+    &:hover {
+      background: #0056b3;
+    }
+  
+    &:disabled {
+      background: #b0c4de;
+      cursor: not-allowed;
+    }
+  }
+  

@@ -11,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   // Adjust the URL to match your backend address
   private apiUrl = 'http://localhost:5085/api/auth';
-
+  private csrfToken: string | null = null;
   constructor(private http: HttpClient) {}
 
   // Send login request to backend
@@ -62,5 +62,19 @@ export class AuthService {
       console.error('Error checking token expiration', error);
       return true; // If an error occurs, treat the token as expired
     }
+  }
+  // ✅ Load CSRF Token from Backend
+  loadCsrfToken(): void {
+    this.http
+      .get<{ token: string }>('http://localhost:5085/api/auth/csrf-token')
+      .subscribe((response) => {
+        this.csrfToken = response.token;
+        localStorage.setItem('XSRF-TOKEN', this.csrfToken);
+      });
+  }
+
+  // ✅ Get CSRF Token for Requests
+  getCsrfToken(): string | null {
+    return localStorage.getItem('XSRF-TOKEN');
   }
 }

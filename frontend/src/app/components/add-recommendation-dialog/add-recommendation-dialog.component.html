@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Add Recommendation</h2>
+<mat-dialog-content>
+  <mat-form-field style="width: 100%">
+    <mat-label>Type</mat-label>
+    <input
+      matInput
+      [(ngModel)]="recommendation.type"
+      placeholder="E.g., Allergy Check"
+    />
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <mat-label>Description</mat-label>
+    <input
+      matInput
+      [(ngModel)]="recommendation.description"
+      placeholder="E.g., Check for pollen allergies"
+    />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button color="primary" (click)="save()">Save</button>
+</mat-dialog-actions>

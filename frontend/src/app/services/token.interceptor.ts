@@ -7,20 +7,21 @@ export const TokenInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ) => {
-  console.log('TokenInterceptor triggered.');
-
   const authService = inject(AuthService);
   const token = authService.getToken();
-  console.log('TokenInterceptor triggered. Token from storage:', token);
+  const csrfToken = authService.getCsrfToken();
+
+  let headers = req.headers;
 
   if (token) {
-    const clonedRequest = req.clone({
-      setHeaders: { Authorization: `Bearer ${token}` },
-    });
-    console.log('Modified Request with Authorization:', clonedRequest);
-    return next(clonedRequest);
+    headers = headers.set('Authorization', `Bearer ${token}`);
   }
 
-  console.log('No token found, sending original request');
-  return next(req);
+  // ✅ Add CSRF Token if available (for state-changing requests)
+  if (csrfToken && req.method !== 'GET') {
+    headers = headers.set('X-XSRF-TOKEN', csrfToken);
+  }
+
+  const clonedRequest = req.clone({ headers });
+  return next(clonedRequest);
 };

@@ -19,7 +19,7 @@ export class PatientService {
   constructor(private http: HttpClient) {}
 
   // GET: Fetch all patients
-  getPatients(): Observable<Patient[]> {
+  getAllPatients(): Observable<Patient[]> {
     return this.http.get<Patient[]>(this.apiUrl);
   }
 
@@ -36,5 +36,16 @@ export class PatientService {
   // DELETE: Remove a patient by ID
   deletePatient(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+  getPatients(
+    searchTerm: string = '',
+    isIdSearch: boolean = false
+  ): Observable<Patient[]> {
+    let url = this.apiUrl;
+    if (searchTerm) {
+      url += isIdSearch ? `?id=${searchTerm}` : `?name=${searchTerm}`;
+    }
+    console.log('Fetching:', url); // 🔥 Debugging log
+    return this.http.get<Patient[]>(url);
   }
 }

@@ -1,13 +1,13 @@
-<h2 mat-dialog-title>Edit Patient</h2>
+<div class="edit-patient-container">
+  <h2>Edit Patient</h2>
 
-<div mat-dialog-content>
   <form>
-    <mat-form-field style="width: 100%">
+    <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input matInput [(ngModel)]="patient.name" name="name" required />
     </mat-form-field>
 
-    <mat-form-field style="width: 100%">
+    <mat-form-field appearance="outline">
       <mat-label>Date of Birth</mat-label>
       <input
         matInput
@@ -18,7 +18,7 @@
       />
     </mat-form-field>
 
-    <mat-form-field style="width: 100%">
+    <mat-form-field appearance="outline">
       <mat-label>Gender</mat-label>
       <mat-select [(ngModel)]="patient.gender" name="gender" required>
         <mat-option value="Male">Male</mat-option>
@@ -27,7 +27,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field style="width: 100%">
+    <mat-form-field appearance="outline">
       <mat-label>Contact Info</mat-label>
       <input
         matInput
@@ -36,22 +36,24 @@
         required
       />
     </mat-form-field>
-  </form>
-</div>
 
-<div mat-dialog-actions>
-  <button mat-button (click)="closeDialog()">Cancel</button>
-  <button
-    mat-button
-    color="primary"
-    (click)="savePatient()"
-    [disabled]="
-      !patient.name ||
-      !patient.dateOfBirth ||
-      !patient.gender ||
-      !patient.contactInfo
-    "
-  >
-    Save
-  </button>
+    <div class="button-container">
+      <button mat-button class="cancel-button" (click)="closeDialog()">
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        class="save-button"
+        (click)="savePatient()"
+        [disabled]="
+          !patient.name ||
+          !patient.dateOfBirth ||
+          !patient.gender ||
+          !patient.contactInfo
+        "
+      >
+        Save
+      </button>
+    </div>
+  </form>
 </div>
